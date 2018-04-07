@@ -5,7 +5,6 @@ let g:python_host_prog=$PYENV_ROOT.'/versions/neovim-2/bin/python2.7'
 :let java_allow_cpp_keywords=1
 :let java_highlight_functions=1
 
-let mapleader = "\<Space>"
 
 " reset augroup
 augroup MyAutoCmd
@@ -163,6 +162,21 @@ let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#ale#error_symbol = 'E:'
 let g:airline#extensions#ale#warning_symbol = 'W:'
+
+" Leader
+" LeaderをSpaceキーにする
+let mapleader = "\<Space>"
+" <Space>wを押してファイルを保存する（:w<Enter>よりずっと速い）
+nnoremap <Leader>w :w<CR>
+" <Space>pと<Space>yでシステムのクリップボードにコピー＆ペーストする
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+
 
 " setting
 "文字コードをUFT-8に設定
