@@ -5,6 +5,8 @@ let g:python_host_prog=$PYENV_ROOT.'/versions/neovim-2/bin/python2.7'
 :let java_allow_cpp_keywords=1
 :let java_highlight_functions=1
 
+let mapleader = "\<Space>"
+
 " reset augroup
 augroup MyAutoCmd
     autocmd!
@@ -75,11 +77,12 @@ endif
 
 " <C-c> で実行を強制終了させる
 " quickrun.vim が実行していない場合には <C-c> を呼び出す
+
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+nnoremap <Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
 " vimprocで非同期実行
 " 成功時にバッファ、失敗時にQuickFixで表示
 " 結果表示のサイズ調整など
-let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config._ = {
       \ 'runner'    : 'vimproc',
@@ -91,11 +94,13 @@ let g:quickrun_config._ = {
       \ 'outputter/buffer/close_on_empty' : 1,
       \ }
 
+au FileType qf nnoremap <silent><buffer>q :quit<CR>
 " 実行時に前回の表示内容をクローズ&保存してから実行
 let g:quickrun_no_default_key_mappings = 1
 nmap <Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
 nnoremap \r :write<CR>:QuickRun -mode n<CR>
 xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 
 
